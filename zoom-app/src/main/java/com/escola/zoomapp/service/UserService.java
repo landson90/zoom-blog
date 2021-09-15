@@ -28,4 +28,9 @@ public class UserService {
     }
 
 
+    public UserDTO showUser(Long id) {
+        User user = this.userRepository.findById(id).orElse(null);
+        UserDTO userDTO = this.userDTOAssembler.toModel(user);
+        return userDTO;
+    }
 }

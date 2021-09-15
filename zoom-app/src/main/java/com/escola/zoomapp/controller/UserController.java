@@ -5,10 +5,7 @@ import com.escola.zoomapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -21,9 +18,17 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @PostMapping
-    public ResponseEntity<?> store(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> store(@RequestBody UserDTO userDTO) {
         UserDTO user = this.userService.create(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
+    @GetMapping("/{id}")
+   public ResponseEntity<UserDTO> show(@PathVariable Long id) {
+        UserDTO userDTO = this.userService.showUser(id);
+        return ResponseEntity.ok().body(userDTO);
+   }
+
 }
