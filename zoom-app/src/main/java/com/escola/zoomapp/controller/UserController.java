@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -23,7 +24,7 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<UserDTO> store(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> store(@RequestBody @Valid UserDTO userDTO) {
         UserDTO user = this.userService.create(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
