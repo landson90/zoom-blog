@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class UserEntityAssembler {
 
     @Autowired
-    public ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     public User toModel(UserDTO userDTO) {
         return modelMapper.map(userDTO, User.class);

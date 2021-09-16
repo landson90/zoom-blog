@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class UserDTOAssembler {
 
     @Autowired
-    public ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
 
     public UserDTO toModel(User user) {

@@ -1,7 +1,6 @@
 package com.escola.zoomapp.controller;
 
 import com.escola.zoomapp.dto.UserDTO;
-import com.escola.zoomapp.exception.user.UserNotFoundException;
 import com.escola.zoomapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.NoSuchElementException;
+
 
 @RestController
 @RequestMapping("/usuarios")
