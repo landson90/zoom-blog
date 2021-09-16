@@ -5,6 +5,9 @@ import com.escola.zoomapp.mapper.poster.PostDTOAssembler;
 import com.escola.zoomapp.mapper.poster.PostEntityAssemble;
 import com.escola.zoomapp.model.Post;
 import com.escola.zoomapp.repository.PostRepository;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +27,17 @@ public class PostService {
 
     public PostDTO postCreate(PostDTO postDTO) {
         Post post = this.postEntityAssemble.toModel(postDTO);
-        Post create = this.postRepository.save(post);
-      
-        return this.postDTOAssembler.toModel(create);
+        PostDTO postCreateDTO = this.postDTOAssembler.toModel(this.postRepository.save(post));
+        return postCreateDTO;
     }
+
+	public PostDTO postShow(Long id) {
+		Post post = this.postRepository.findById(id).get();
+		return this.postDTOAssembler.toModel(post);
+	}
+
+	public List<PostDTO> toCollectionPostDTO(Long userId) {
+		List<Post> posts = this.postRepository.collectionPostUserId(userId);
+		return this.postDTOAssembler.toCollectionModel(posts);
+	}
 }
