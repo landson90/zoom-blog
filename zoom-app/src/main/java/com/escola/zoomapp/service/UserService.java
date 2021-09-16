@@ -2,14 +2,11 @@ package com.escola.zoomapp.service;
 
 import com.escola.zoomapp.dto.UserDTO;
 import com.escola.zoomapp.exception.user.UserNotFoundException;
-import com.escola.zoomapp.mapper.UserDTOAssembler;
-import com.escola.zoomapp.mapper.UserEntityAssembler;
+import com.escola.zoomapp.mapper.user.UserDTOAssembler;
+import com.escola.zoomapp.mapper.user.UserEntityAssembler;
 import com.escola.zoomapp.model.User;
 import com.escola.zoomapp.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class UserService {

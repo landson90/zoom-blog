@@ -1,4 +1,4 @@
-package com.escola.zoomapp.mapper;
+package com.escola.zoomapp.mapper.user;
 
 import com.escola.zoomapp.dto.UserDTO;
 import com.escola.zoomapp.model.User;

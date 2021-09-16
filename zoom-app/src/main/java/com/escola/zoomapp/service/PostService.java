@@ -16,7 +16,7 @@ public class PostService {
     }
 
     public PostDTO postCreate(PostDTO postDTO) {
-        
+
 
     }
 }
