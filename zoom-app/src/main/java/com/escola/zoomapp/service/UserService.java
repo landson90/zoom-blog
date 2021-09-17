@@ -3,6 +3,7 @@ package com.escola.zoomapp.service;
 
 import java.util.Optional;
 
+import com.escola.zoomapp.exception.InvalidEmailException;
 import com.escola.zoomapp.exception.enums.ErrorMessageStatus;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +29,15 @@ public class UserService {
     }
 
     public UserDTO create(UserDTO userDTO) {
+        Optional<User> userEmailInvaldid = this.userRepository.findByEmail(userDTO.getEmail());
+        if(userEmailInvaldid.isPresent()) {
+            throw new InvalidEmailException(ErrorMessageStatus.MSG_EMIAL_CADASTRADO.getDescrition());
+        }
         User user  = userEntityAssembler.toModel(userDTO);
-        
-        try {
-        	Optional<User> userEmailInvaldid = this.userRepository.findByEmail(userDTO.getEmail());
-        } catch (Exception e) {
-			// TODO: handle exception
-		}
         UserDTO userCreateDTO = userDTOAssembler.toModel(this.userRepository.save(user));
         return userCreateDTO;
-    }
 
+    }
 
     public UserDTO showUser(Long id) {
                 User user = this.searchOrFailEntity(id);
@@ -52,4 +51,5 @@ public class UserService {
                         String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), id)
                 ));
     }
+
 }

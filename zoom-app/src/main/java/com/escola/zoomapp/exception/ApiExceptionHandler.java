@@ -1,6 +1,7 @@
 package com.escola.zoomapp.exception;
 
 import com.escola.zoomapp.exception.enums.ProblemType;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 
     }
-    
+
+    @ExceptionHandler(InvalidEmailException.class)
+    public ResponseEntity<?> dealingWithDuplicateEmail(
+            InvalidEmailException ex, WebRequest request
+    ) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        ProblemType problemType = ProblemType.EMAIL_INVALIDO;
+        String detail = ex.getMessage();
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+
+    }
   
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
