@@ -1,19 +1,23 @@
 package com.escola.zoomapp.service;
 
+import java.util.List;
+
+import com.escola.zoomapp.exception.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.escola.zoomapp.dto.PostDTO;
 import com.escola.zoomapp.mapper.poster.PostDTOAssembler;
 import com.escola.zoomapp.mapper.poster.PostEntityAssemble;
 import com.escola.zoomapp.model.Post;
 import com.escola.zoomapp.repository.PostRepository;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class PostService {
 
+	  private static final String MSG_POST_NAO_ENCONTRDO
+      = "Não existe Poster com esse código %d.";
+	  
     private PostRepository postRepository;
     private PostDTOAssembler postDTOAssembler;
     private PostEntityAssemble postEntityAssemble;
@@ -32,7 +36,7 @@ public class PostService {
     }
 
 	public PostDTO postShow(Long id) {
-		Post post = this.postRepository.findById(id).get();
+		Post post = this.searchOrFailEntity(id);
 		return this.postDTOAssembler.toModel(post);
 	}
 
@@ -40,4 +44,12 @@ public class PostService {
 		List<Post> posts = this.postRepository.collectionPostUserId(userId);
 		return this.postDTOAssembler.toCollectionModel(posts);
 	}
+	
+	private Post searchOrFailEntity(Long id) {
+        return this.postRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format(MSG_POST_NAO_ENCONTRDO, id)
+                ));
+    }
+
 }

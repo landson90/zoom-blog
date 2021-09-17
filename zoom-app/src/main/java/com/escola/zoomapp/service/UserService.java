@@ -1,7 +1,7 @@
 package com.escola.zoomapp.service;
 
 import com.escola.zoomapp.dto.UserDTO;
-import com.escola.zoomapp.exception.user.UserNotFoundException;
+import com.escola.zoomapp.exception.EntityNotFoundException;
 import com.escola.zoomapp.mapper.user.UserDTOAssembler;
 import com.escola.zoomapp.mapper.user.UserEntityAssembler;
 import com.escola.zoomapp.model.User;
@@ -40,7 +40,7 @@ public class UserService {
 
     private User searchOrFailEntity(Long id) {
         return this.userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         String.format(MSG_USUÁRIO_EM_USO, id)
                 ));
     }
