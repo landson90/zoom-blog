@@ -40,6 +40,7 @@ public class PostController {
     
     @GetMapping("/{userId}/usuario")
     public ResponseEntity<List<PostDTO>> toCollectionToPostDTO(@PathVariable Long userId) {
+
     	List<PostDTO> postDTOs = this.postService.toCollectionPostDTO(userId);
     	return ResponseEntity.ok().body(postDTOs);
     }
