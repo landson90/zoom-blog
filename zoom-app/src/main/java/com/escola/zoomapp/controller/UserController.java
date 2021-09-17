@@ -27,11 +27,12 @@ public class UserController {
         UserDTO user = this.userService.create(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
     @GetMapping("/{id}")
-   public ResponseEntity<UserDTO> show(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> show(@PathVariable Long id) {
         UserDTO userDTO = this.userService.showUser(id);
         return ResponseEntity.ok().body(userDTO);
 
-   }
+    }
 
 }

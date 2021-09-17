@@ -31,17 +31,17 @@ public class PostController {
         PostDTO postAfterCreate = this.postService.postCreate(postDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(postAfterCreate);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> show(@PathVariable Long id) {
-    	PostDTO postDTO = this.postService.postShow(id);
-    	return ResponseEntity.ok().body(postDTO);
+        PostDTO postDTO = this.postService.postShow(id);
+        return ResponseEntity.ok().body(postDTO);
     }
-    
+
     @GetMapping("/{userId}/usuario")
     public ResponseEntity<List<PostDTO>> toCollectionToPostDTO(@PathVariable Long userId) {
 
-    	List<PostDTO> postDTOs = this.postService.toCollectionPostDTO(userId);
-    	return ResponseEntity.ok().body(postDTOs);
+        List<PostDTO> postDTOs = this.postService.toCollectionPostDTO(userId);
+        return ResponseEntity.ok().body(postDTOs);
     }
 }

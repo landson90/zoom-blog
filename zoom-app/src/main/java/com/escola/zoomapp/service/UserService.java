@@ -30,19 +30,19 @@ public class UserService {
 
     public UserDTO create(UserDTO userDTO) {
         Optional<User> userEmailInvaldid = this.userRepository.findByEmail(userDTO.getEmail());
-        if(userEmailInvaldid.isPresent()) {
+        if (userEmailInvaldid.isPresent()) {
             throw new InvalidEmailException(ErrorMessageStatus.MSG_EMIAL_CADASTRADO.getDescrition());
         }
-        User user  = userEntityAssembler.toModel(userDTO);
+        User user = userEntityAssembler.toModel(userDTO);
         UserDTO userCreateDTO = userDTOAssembler.toModel(this.userRepository.save(user));
         return userCreateDTO;
 
     }
 
     public UserDTO showUser(Long id) {
-                User user = this.searchOrFailEntity(id);
-                UserDTO userDTO = this.userDTOAssembler.toModel(user);
-                return userDTO;
+        User user = this.searchOrFailEntity(id);
+        UserDTO userDTO = this.userDTOAssembler.toModel(user);
+        return userDTO;
     }
 
     private User searchOrFailEntity(Long id) {

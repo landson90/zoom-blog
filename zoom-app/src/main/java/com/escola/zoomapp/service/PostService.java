@@ -29,32 +29,32 @@ public class PostService {
     }
 
     public PostDTO postCreate(PostDTO postDTO) {
-    	try {
-    		Post post = this.postEntityAssemble.toModel(postDTO);
+        try {
+            Post post = this.postEntityAssemble.toModel(postDTO);
             PostDTO postCreateDTO = this.postDTOAssembler.toModel(this.postRepository.save(post));
             return postCreateDTO;
-    	} catch (DataIntegrityViolationException e) {
-    		throw new EntityNotFoundException(String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), postDTO.getUser().getId()));
-		}
-        
+        } catch (DataIntegrityViolationException e) {
+            throw new EntityNotFoundException(String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), postDTO.getUser().getId()));
+        }
+
     }
 
-	public PostDTO postShow(Long id) {
-		Post post = this.searchOrFailEntity(id);
-		return this.postDTOAssembler.toModel(post);
-	}
+    public PostDTO postShow(Long id) {
+        Post post = this.searchOrFailEntity(id);
+        return this.postDTOAssembler.toModel(post);
+    }
 
-	public List<PostDTO> toCollectionPostDTO(Long userId) {
-		try {
-			List<Post> posts = this.postRepository.collectionPostUserId(userId);
-			return this.postDTOAssembler.toCollectionModel(posts);
-		} catch (Exception e) {
-			 throw new EntityNotFoundException(String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), userId));
-		}
-		
-	}
-	
-	private Post searchOrFailEntity(Long id) {
+    public List<PostDTO> toCollectionPostDTO(Long userId) {
+        try {
+            List<Post> posts = this.postRepository.collectionPostUserId(userId);
+            return this.postDTOAssembler.toCollectionModel(posts);
+        } catch (Exception e) {
+            throw new EntityNotFoundException(String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), userId));
+        }
+
+    }
+
+    private Post searchOrFailEntity(Long id) {
 
         return this.postRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorMessageStatus.MSG_POST_NAO_ENCONTRADO.getDescrition())
