@@ -2,13 +2,13 @@ package com.escola.zoomapp.service;
 
 import java.util.List;
 
-import com.escola.zoomapp.exception.enums.ErrorMessageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.escola.zoomapp.dto.PostDTO;
 import com.escola.zoomapp.exception.EntityNotFoundException;
+import com.escola.zoomapp.exception.enums.ErrorMessageStatus;
 import com.escola.zoomapp.mapper.poster.PostDTOAssembler;
 import com.escola.zoomapp.mapper.poster.PostEntityAssemble;
 import com.escola.zoomapp.model.Post;
@@ -34,7 +34,7 @@ public class PostService {
             PostDTO postCreateDTO = this.postDTOAssembler.toModel(this.postRepository.save(post));
             return postCreateDTO;
         } catch (DataIntegrityViolationException e) {
-            throw new EntityNotFoundException(String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), postDTO.getUser().getId()));
+            throw new EntityNotFoundException(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition());
         }
 
     }
@@ -49,7 +49,7 @@ public class PostService {
             List<Post> posts = this.postRepository.collectionPostUserId(userId);
             return this.postDTOAssembler.toCollectionModel(posts);
         } catch (Exception e) {
-            throw new EntityNotFoundException(String.format(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition(), userId));
+        	throw new EntityNotFoundException(ErrorMessageStatus.MSG_USUARIO_NAO_ENCONTRADO.getDescrition());
         }
 
     }

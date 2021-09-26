@@ -1,6 +1,6 @@
 package com.escola.zoomapp.dto;
 
-import com.escola.zoomapp.model.User;
+import com.escola.zoomapp.model.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,5 +17,5 @@ public class PostDTO {
     private String description;
     private String title;
     private String content;
-    private User user;
+    private UserEntity user;
 }

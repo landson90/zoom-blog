@@ -1,7 +1,7 @@
 package com.escola.zoomapp.mapper.user;
 
 import com.escola.zoomapp.dto.UserDTO;
-import com.escola.zoomapp.model.User;
+import com.escola.zoomapp.model.UserEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +15,8 @@ public class UserEntityAssembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public User toModel(UserDTO userDTO) {
-        return modelMapper.map(userDTO, User.class);
+    public UserEntity toModel(UserDTO userDTO) {
+        return modelMapper.map(userDTO, UserEntity.class);
     }
 
 }
